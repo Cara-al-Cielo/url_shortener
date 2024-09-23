@@ -25,8 +25,8 @@ public class UrlController {
     private UrlRepository urlRepository;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createShortUrl(@RequestBody String originalUrl) {
-        String shortenedUrl = urlService.shortenUrl(originalUrl);
+    public ResponseEntity<String> createShortUrl(@RequestBody Url url) {
+        String shortenedUrl = urlService.shortenUrl(url);
         return ResponseEntity.ok(shortenedUrl);
     }
 

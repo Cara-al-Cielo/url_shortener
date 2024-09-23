@@ -6,9 +6,11 @@ import com.VolodyaInc.url_shortener.repository.UrlRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -17,9 +19,8 @@ public class UrlService {
     @Autowired
     private UrlRepository urlRepository;
 
-    public String shortenUrl(String originalUrl) {
-        Url url = new Url();
-        url.setOriginalUrl(originalUrl);
+    public String shortenUrl(@RequestBody Url url) {
+        String originalUrl = url.getOriginalUrl();
         url.setShortenedUrl("http://localhost:8080/" + generateShortenedUrl(originalUrl));
         urlRepository.save(url);
         return url.getShortenedUrl();
