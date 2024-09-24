@@ -20,15 +20,11 @@ public class UrlService {
     private UrlRepository urlRepository;
 
     public String shortenUrl(@RequestBody Url url) {
+
         String originalUrl = url.getOriginalUrl();
-        url.setShortenedUrl("http://localhost:8080/" + generateShortenedUrl(originalUrl));
+        url.setShortenedUrl(Base62.generateShortenedUrl(originalUrl));
         urlRepository.save(url);
         return url.getShortenedUrl();
-    }
-
-    private String generateShortenedUrl(String originalUrl) {
-        UUID uuid = UUID.randomUUID();
-        return Base62.encodeUUID(uuid);
     }
 
     public String getOriginalUrl(String shortenedUrl) {
