@@ -15,10 +15,9 @@ public class Base62 {
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
 
     public static String generateShortenedUrl(String originalUrl) {
-        // Remove trailing slash from URL
-        originalUrl = originalUrl.replaceAll("/$", "");
 
-        // Use MessageDigest to generate a hash value
+        originalUrl = originalUrl.replaceAll("/$", "");
+       
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("SHA-256");
