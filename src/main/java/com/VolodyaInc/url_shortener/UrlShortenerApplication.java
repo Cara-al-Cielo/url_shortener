@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import java.util.Scanner;
+
 
 @SpringBootApplication
 @EntityScan("com.VolodyaInc.url_shortener.entity")
@@ -26,7 +26,6 @@ public class UrlShortenerApplication {
 	}
 	@Autowired
 	private MemoryStorage memoryStorage;
-	Scanner s = new Scanner(System.in);
 
 	@Value("${storage.type}")
 	String storageType;
