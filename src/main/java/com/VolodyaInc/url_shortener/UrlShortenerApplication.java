@@ -1,16 +1,18 @@
 package com.VolodyaInc.url_shortener;
 
 import com.VolodyaInc.url_shortener.entity.Url;
+import com.VolodyaInc.url_shortener.memoryStorage.MemoryStorage;
 import com.VolodyaInc.url_shortener.repository.UrlRepository;
 import com.VolodyaInc.url_shortener.service.UrlService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import java.util.List;
+import java.util.Scanner;
 
 @SpringBootApplication
 @EntityScan("com.VolodyaInc.url_shortener.entity")
@@ -22,7 +24,12 @@ public class UrlShortenerApplication {
 	public UrlShortenerApplication(UrlService urlService) {
 		this.urlService = urlService;
 	}
+	@Autowired
+	private MemoryStorage memoryStorage;
+	Scanner s = new Scanner(System.in);
 
+	@Value("${storage.type}")
+	String storageType;
 
 	public static void main(String[] args) {
 		SpringApplication.run(UrlShortenerApplication.class, args);
@@ -31,7 +38,8 @@ public class UrlShortenerApplication {
 
 	@PostConstruct
 	public void init() {
-		List<Url> allUrls = urlService.getAllUrls();
-		System.out.println("All URLs: " + allUrls);
+		if (storageType.equals("memory")) {
+			urlService.setInMemoryStorage(true);
+		}
 	}
 }
